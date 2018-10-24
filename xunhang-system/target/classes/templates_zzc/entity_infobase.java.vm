@@ -1,0 +1,12 @@
+package ${package.Entity};
+
+import cn.xunhang.common.base.SuperEntity;
+import com.baomidou.mybatisplus.activerecord.Model;
+import lombok.Getter;
+import lombok.Setter;
+/**
+ * @author ${author}
+ * @since ${date}
+ */
+public class InfoBaseEntity<T extends Model> extends SuperEntity<T> {
+}

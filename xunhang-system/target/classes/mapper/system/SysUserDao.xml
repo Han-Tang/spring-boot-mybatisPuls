@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.system.dao.SysUserDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="cn.xunhang.system.entity.SysUser">
+		<id column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="salt" property="salt" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="mobile" property="mobile" />
+		<result column="status" property="status" />
+		<result column="deptId" property="deptId" />
+		<result column="createDate" property="createDate" />
+	</resultMap>
+
+	<select id="queryPageList" resultType="cn.xunhang.system.entity.SysUser">
+		select u.*, (select d.name from sys_dept d where d.deptId = u.deptId) deptName from sys_user u
+		<where>
+			<if test="username != null and username.trim() != ''">
+				and u.username like concat('%',#{username},'%')
+			</if>
+			<!--  数据过滤  -->
+			${filterSql}
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by u.${sidx} ${order}
+			</when>
+			<otherwise>
+				order by u.id desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="queryList" resultType="cn.xunhang.system.entity.SysUser">
+		select u.*, (select d.name from sys_dept d where d.deptId = u.deptId) deptName from sys_user u
+		<where>
+			<if test="username != null and username.trim() != ''">
+				and u.username like concat('%',#{username},'%')
+			</if>
+			<!--  数据过滤  -->
+			${filterSql}
+		</where>
+		order by id desc
+	</select>
+
+	<!-- 查询用户的所有权限 -->
+	<select id="queryAllPerms" resultType="string">
+		select m.perms from sys_user_role ur
+		LEFT JOIN sys_role_menu rm on ur.roleId = rm.roleId
+		LEFT JOIN sys_menu m on rm.menuId = m.id
+		where ur.userId = #{userId}
+		order by ur.id desc
+	</select>
+
+	<!-- 查询用户的所有菜单ID -->
+	<select id="queryAllMenuId" resultType="String">
+		select distinct rm.menuId from sys_user_role ur
+		LEFT JOIN sys_role_menu rm on ur.roleId = rm.roleId
+		where ur.userId = #{userId}
+		order by id desc
+	</select>
+
+	<select id="queryByUserName" resultType="cn.xunhang.system.entity.SysUser">
+		select * from sys_user where username = #{username} order by id desc
+	</select>
+
+	<select id="queryById" resultType="cn.xunhang.system.entity.SysUser">
+		select * from sys_user where id = #{id} order by id desc
+	</select>
+
+	<delete id="deleteBatch">
+		delete from sys_user where id in
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+		;
+		delete from sys_user_role where userId in
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+		;
+		delete from sys_user_token where userId in
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+
+</mapper>

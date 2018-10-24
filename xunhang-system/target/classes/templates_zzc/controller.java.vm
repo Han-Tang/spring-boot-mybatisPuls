@@ -1,0 +1,68 @@
+package ${package.Controller};
+
+import cn.xunhang.common.base.ObjectResponse;
+import cn.xunhang.common.base.Response;
+import com.baomidou.mybatisplus.plugins.Page;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.Map;
+
+
+/**
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${superControllerClass})
+public class ${table.controllerName} extends InfoBaseController<${table.entityPath},${table.entityPath}Dao,xxxdlt,xxxDao>  {
+#else
+public class ${table.controllerName} {
+#end
+
+
+    @Autowired
+    private ${table.entityPath}Service hdrService;
+
+    @Autowired
+    private xxService dltService;
+
+    /*
+     *  主表
+     *
+     *
+     */
+
+    @RequestMapping(value = "/hdr/queryList", method = RequestMethod.POST)
+    public Response queryList(@RequestBody Map<String, Object> params){
+        Page<xxxx> page=new Page<xxxx>((int)params.get("current"),(int)params.get("offset"));
+
+        Map<String, Object> map = (Map<String, Object>) params.get("condition");
+        EntityWrapper<xxxx> entityWrapper = new EntityWrapper<>();
+        entityWrapper.eq(StringUtils.isNotBlank((String) map.get("kind")), "kind", map.get("kind"))
+        .and(StringUtils.isNotBlank((String) map.get("name")), "name={0}", map.get("name"))
+        .and(StringUtils.isNotBlank((String) map.get("code")), "code={0}", map.get("code"))
+        ;
+        entityWrapper.eq("deleted",0).orderBy("createDate",false);
+        Page<StoreInHdr> pageInfo=hdrService.queryList(page,entityWrapper);
+        return new ObjectResponse<Page>(pageInfo);
+    }
+
+    /*
+     *  从表
+     *  generator:
+     *
+     */
+
+    @RequestMapping(value = "/dlt/queryList", method = RequestMethod.POST)
+
+
+}
+

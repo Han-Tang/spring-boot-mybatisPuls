@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.modules.store.dao.StoreInHdrDao">
+
+    <select id="queryListByCondition" resultType="cn.xunhang.modules.store.entity.StoreInHdr">
+
+        select hdr.* from StoreInHdr hdr where hdr.id in
+        (
+            select distinct(hdr.id) from StoreInHdr hdr inner join StoreInDlt dlt on hdr.formNo = dlt.formNo
+            where 1 = 1
+            <if test="storeName!= null and storeName!= ''"> and hdr.storeName = #{storeName}</if>
+            <if test="name!= null and name!= ''"> and dlt.name = #{name}</if>
+            <if test="code!= null and code!= ''"> and dlt.code = #{code}</if>
+            <if test="storeInName!= null and storeInName!= ''"> and hdr.storeInName = #{storeInName}</if>
+            and dlt.deleted = 0 and hdr.deleted = 0 and hdr.kind = #{kind}
+            <choose>
+                <when test="status != null and status != ''">
+                    and hdr.status = #{status}
+                </when>
+                <otherwise>
+                    and ( hdr.status = '1' or hdr.status = '2' )
+                </otherwise>
+            </choose>
+        )
+        order by hdr.createDate desc
+
+    </select>
+    <select id="queryListConfirmByCondition" resultType="cn.xunhang.modules.store.entity.StoreInHdr">
+        select hdr.* from StoreInHdr hdr where hdr.id in
+        (
+            select distinct(hdr.id) from StoreInHdr hdr inner join StoreIndlt dlt on hdr.id = dlt.storeInId
+            where 1 = 1
+            <if test="storeName!= null and storeName!= ''"> and hdr.storeName = #{storeName}</if>
+            <if test="storeInNo!= null and storeInNo!= ''"> and hdr.storeInNo = #{storeInNo}</if>
+            <if test="storeInName!= null and storeInName!= ''"> and hdr.storeInName = #{storeInName}</if>
+            and dlt.deleted = 0 and hdr.deleted = 0 and hdr.kind = #{kind}
+
+            <choose>
+                <when test="status != null and status != ''">
+                    and hdr.status = #{status}
+                </when>
+                <otherwise>
+                    and ( hdr.status = '2' or hdr.status = '3' )
+                </otherwise>
+            </choose>
+        )
+        order by hdr.createDate desc
+
+    </select>
+</mapper>

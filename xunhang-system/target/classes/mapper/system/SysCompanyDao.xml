@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.system.dao.SysCompanyDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="cn.xunhang.system.entity.SysCompany">
+		<id column="code" property="code" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="type" property="type" />
+		<result column="simpleName" property="simpleName" />
+		<result column="industry" property="industry" />
+		<result column="manager" property="manager" />
+		<result column="contact" property="contact" />
+		<result column="phone" property="phone" />
+		<result column="fax" property="fax" />
+		<result column="email" property="email" />
+		<result column="address" property="address" />
+		<!--<result column="status" property="status" />-->
+		<result column="remark" property="remark" />
+		<result column="orderNum" property="orderNum" />
+		<result column="createBy" property="createBy" />
+		<result column="createDate" property="createDate" />
+		<result column="updateBy" property="updateBy" />
+		<result column="updateDate" property="updateDate" />
+		<result column="ts" property="ts" />
+	</resultMap>
+
+</mapper>
