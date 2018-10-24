@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.modules.business.dao.OrderDtlDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="cn.xunhang.modules.business.entity.OrderDtl">
+		<result column="id" property="id" />
+		<result column="formno" property="formno" />
+		<result column="sn" property="sn" />
+		<result column="productName" property="productName" />
+		<result column="productCode" property="productCode" />
+		<result column="mainColor" property="mainColor" />
+		<result column="viceColor" property="viceColor" />
+		<result column="mainMaterial" property="mainMaterial" />
+		<result column="viceMaterial" property="viceMaterial" />
+		<result column="qty" property="qty" />
+		<result column="price" property="price" />
+		<result column="priceMethod" property="priceMethod" />
+		<result column="amount" property="amount" />
+		<result column="description" property="description" />
+		<result column="active" property="active" />
+		<result column="deleted" property="deleted" />
+		<result column="createDate" property="createDate" />
+		<result column="createBy" property="createBy" />
+		<result column="updateDate" property="updateDate" />
+		<result column="updateBy" property="updateBy" />
+		<result column="ts" property="ts" />
+	</resultMap>
+
+</mapper>

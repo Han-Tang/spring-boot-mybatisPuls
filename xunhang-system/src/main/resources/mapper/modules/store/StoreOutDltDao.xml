@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.modules.store.dao.StoreOutDltDao">
+
+
+    <select id="queryListByCondition" resultType="cn.xunhang.modules.store.entity.StoreOutDlt">
+
+         select * from StoreOutDlt dlt
+         where 1 = 1
+         <if test="deliveryNo!= null and deliveryNo!= ''"> and dlt.deliveryNo = #{deliveryNo} </if>
+         <if test="saleNo!= null and saleNo!= ''"> and dlt.sFormNo = #{saleNo} </if>
+         and dlt.deleted = 0 and dlt.storeOutId is null
+          order by dlt.createDate desc
+    </select>
+</mapper>

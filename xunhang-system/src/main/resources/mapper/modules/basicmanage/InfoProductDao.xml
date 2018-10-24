@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.modules.basicmanage.dao.InfoProductDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="cn.xunhang.modules.basicmanage.entity.InfoProduct">
+		<id column="ID" property="id" />
+		<result column="Code" property="Code" />
+		<result column="GCode" property="GCode" />
+		<result column="Name" property="Name" />
+		<result column="Serial" property="Serial" />
+		<result column="Model" property="Model" />
+		<result column="Spec" property="Spec" />
+		<result column="ColorCode1" property="ColorCode1" />
+		<result column="ColorCode2" property="ColorCode2" />
+		<result column="Color1" property="Color1" />
+		<result column="Color2" property="Color2" />
+		<result column="MeterialCode1" property="MeterialCode1" />
+		<result column="MeterialCode2" property="MeterialCode2" />
+		<result column="Meterial1" property="Meterial1" />
+		<result column="Meterial2" property="Meterial2" />
+		<result column="Paint" property="Paint" />
+		<result column="Kind" property="Kind" />
+		<result column="IsBuy" property="IsBuy" />
+		<result column="Shape" property="Shape" />
+		<result column="Unit" property="Unit" />
+		<result column="SoftKind" property="SoftKind" />
+		<result column="Grade" property="Grade" />
+		<result column="Length" property="Length" />
+		<result column="Width" property="Width" />
+		<result column="Thick" property="Thick" />
+		<result column="SaleAttr" property="SaleAttr" />
+		<result column="PurchAttr" property="PurchAttr" />
+		<result column="ProduceAttr" property="ProduceAttr" />
+		<result column="StoreAttr" property="StoreAttr" />
+		<result column="Active" property="Active" />
+		<result column="Deleted" property="Deleted" />
+		<result column="CreateDate" property="CreateDate" />
+		<result column="CreateBy" property="CreateBy" />
+		<result column="UpdateDate" property="UpdateDate" />
+		<result column="UpdateBy" property="UpdateBy" />
+		<result column="TS" property="ts" />
+	</resultMap>
+
+</mapper>

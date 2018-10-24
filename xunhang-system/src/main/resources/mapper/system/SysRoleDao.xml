@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.system.dao.SysRoleDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="cn.xunhang.system.entity.SysRole">
+		<id column="id" property="id" />
+		<result column="roleName" property="roleName" />
+		<result column="remark" property="remark" />
+		<result column="createDate" property="createDate" />
+	</resultMap>
+	
+	<select id="queryPageList" resultType="cn.xunhang.system.entity.SysRole">
+		select r.*, (select d.name from sys_dept d where d.deptId = r.deptId) deptName from sys_role r
+		<where>
+			<if test="roleName != null and roleName.trim() != ''">
+				and r.roleName like concat('%',#{roleName},'%')
+			</if>
+			<!--  数据过滤  -->
+			<!-- ${filterSql} -->
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by r.${sidx} ${order}
+			</when>
+			<otherwise>
+				order by r.roleId asc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="queryList" resultType="cn.xunhang.system.entity.SysRole">
+		select r.*, (select d.name from sys_dept d where d.deptId = r.deptId) deptName from sys_role r
+		<where>
+			<if test="roleName != null and roleName.trim() != ''">
+				and r.roleName like concat('%',#{roleName},'%')
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<delete id="deleteBatch">
+		delete from sys_role where id in
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+		;
+		delete from sys_role_menu where roleId in 
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+		;
+		delete from sys_role_dept where roleId in
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+		;
+		delete from sys_user_role where roleId in 
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+
+</mapper>

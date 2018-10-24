@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.system.dao.SysDeptDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="cn.xunhang.system.entity.SysDept">
+		<id column="id" property="id" />
+		<result column="parentId" property="parentId" />
+		<result column="name" property="name" />
+		<result column="orderNum" property="orderNum" />
+		<result column="deleted" property="deleted" />
+	</resultMap>
+	
+	<select id="queryList" resultType="cn.xunhang.system.entity.SysDept">
+		select d.*,(select p.name from sys_dept p where p.id = d.parentId) as parentName
+		from sys_dept d where d.deleted = 0
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by d.${sidx} ${order}
+            </when>
+			<otherwise>
+                order by d.orderNum asc
+			</otherwise>
+        </choose>
+	</select>
+	
+	<select id="queryDetpIdList" resultType="String">
+		select id from sys_dept where parentId = #{value} and deleted = 0
+	</select>
+
+</mapper>
