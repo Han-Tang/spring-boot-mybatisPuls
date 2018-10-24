@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.modules.basicmanage.dao.ProductPurchDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="cn.xunhang.modules.basicmanage.entity.ProductPurch">
+		<id column="ID" property="id" />
+		<result column="Code" property="Code" />
+		<result column="Grade" property="Grade" />
+		<result column="Price" property="Price" />
+		<result column="SupplierCode" property="SupplierCode" />
+		<result column="Logo" property="Logo" />
+		<result column="Description" property="Description" />
+		<result column="Active" property="Active" />
+		<result column="Deleted" property="Deleted" />
+		<result column="CreateDate" property="CreateDate" />
+		<result column="CreateBy" property="CreateBy" />
+		<result column="UpdateDate" property="UpdateDate" />
+		<result column="UpdateBy" property="UpdateBy" />
+		<result column="TS" property="ts" />
+	</resultMap>
+
+</mapper>

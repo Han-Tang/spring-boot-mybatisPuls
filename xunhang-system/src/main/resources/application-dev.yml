@@ -1,0 +1,18 @@
+spring:
+    mp-enabled: true
+    datasource:
+        dynamic:
+          primary: master #设置默认的数据源或者数据源组,默认值即为master,如果你主从默认下主库的名称就是master可不定义此项。
+          datasource:
+            master:
+                username: sa
+                password: 123456
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                url: jdbc:sqlserver://198.168.1.98:1433;DatabaseName=taixing
+                druid:
+                  filters: stat
+            second:
+                username: sa
+                password: 123456
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                url: jdbc:sqlserver://198.168.1.98:1433;DatabaseName=taixing

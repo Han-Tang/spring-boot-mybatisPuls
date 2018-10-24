@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xunhang.modules.store.dao.PickMaterialHdrDao">
+
+
+    <select id="queryListByCondition" resultType="cn.xunhang.modules.store.entity.PickMaterialHdr">
+
+        select hdr.* from PickMaterialHdr hdr where hdr.id in
+        (
+        select distinct(hdr.id) from PickMaterialHdr hdr inner join PickMaterialDlt dlt on hdr.formNo = dlt.formNo
+        where 1 = 1
+        <if test="formNo!= null and formNo!= ''"> and hdr.formNo = #{formNo}</if>
+        <if test="name!= null and name!= ''"> and dlt.name = #{name}</if>
+        <if test="code!= null and code!= ''"> and dlt.code = #{code}</if>
+
+        and dlt.deleted = 0 and hdr.deleted = 0 and hdr.kind = #{kind}
+        and ( hdr.status = '1' or hdr.status = '2' )
+        )
+        order by hdr.createDate desc
+
+
+    </select>
+    <select id="queryConfirmListByCondition" resultType="cn.xunhang.modules.store.entity.PickMaterialHdr">
+
+        select hdr.* from PickMaterialHdr hdr where hdr.id in
+        (
+        select distinct(hdr.id) from PickMaterialHdr hdr inner join PickMaterialDlt dlt on hdr.formNo = dlt.formNo
+        where 1 = 1
+        <if test="formNo!= null and formNo!= ''"> and hdr.formNo = #{formNo}</if>
+        <if test="name!= null and name!= ''"> and dlt.name = #{name}</if>
+        <if test="code!= null and code!= ''"> and dlt.code = #{code}</if>
+
+        and dlt.deleted = 0 and hdr.deleted = 0 and hdr.kind = #{kind}
+        and  ( hdr.status = '3' or hdr.status = '2' )
+        )
+        order by hdr.createDate desc
+
+    </select>
+</mapper>
